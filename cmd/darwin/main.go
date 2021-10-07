@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Tike-Myson/darwin/pkg/models"
 	"io/ioutil"
 	"log"
@@ -38,17 +39,7 @@ func main() {
 		if err != nil {
 			app.errorLog.Println(err)
 		}
-		signals = app.SortByDate(signals)
-		dates := app.GetDaysFromSignals(signals)
-
-		for _, date := range dates {
-			signalsByDay := app.GetSignalsFromDay(signals, date)
-			err = app.WriteDataToCSVFile(signalsByDay, date, f.Name())
-			//infoLog.Println("Write...")
-			if err != nil {
-				errorLog.Fatal(err)
-			}
-			infoLog.Println("Write...")
-		}
+		m := app.GetExchangeInvolvement(signals)
+		fmt.Println(m)
 	}
 }
